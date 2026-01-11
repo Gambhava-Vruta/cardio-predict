@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CardioPredict AI | Model Dashboard</title>
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Charts -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body class="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50">
+
+<!-- BACKGROUND -->
+<div class="fixed inset-0 overflow-hidden pointer-events-none">
+  <div class="absolute top-20 left-10 w-72 h-72 bg-purple-300 blur-xl opacity-20 animate-pulse"></div>
+  <div class="absolute top-40 right-10 w-72 h-72 bg-blue-300 blur-xl opacity-20 animate-pulse"></div>
+</div>
+
+<!-- NAVBAR -->
+<nav class="bg-white/70 backdrop-blur sticky top-0 z-50 shadow border-b">
+  <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
+    <div class="flex items-center gap-3">
+      <div class="w-12 h-12 bg-gradient-to-br from-red-500 to-pink-600 rounded-full flex items-center justify-center">
+        <i data-lucide="heart" class="text-white"></i>
+      </div>
+      <span class="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+        CardioPredict AI
+      </span>
+    </div>
+
+    <div class="flex gap-2">
+      <a href="home.html" class="nav-btn"><i data-lucide="home"></i>Home</a>
+      <a href="predict.html" class="nav-btn"><i data-lucide="activity"></i>Predict</a>
+      <a href="about.html" class="nav-btn"><i data-lucide="info"></i>About</a>
+      <a href="dashboard.html" class="nav-btn bg-blue-600 text-white"><i data-lucide="trending-up"></i>Dashboard</a>
+    </div>
+  </div>
+</nav>
+
+<!-- MAIN -->
+<div class="max-w-7xl mx-auto px-4 py-10 relative z-10">
+
+  <h1 class="text-4xl font-bold mb-10">Model Comparison Dashboard</h1>
+
+  <!-- MODEL METRICS -->
+  <div class="grid md:grid-cols-3 gap-6 mb-12">
+
+    <div class="bg-white p-6 rounded-2xl shadow hover:scale-105 transition">
+      <h3 class="text-gray-500">Logistic Regression</h3>
+      <p class="text-xl font-bold text-blue-600">Accuracy: 71%</p>
+      <p class="text-sm text-gray-600">ROC-AUC: 0.76</p>
+      <p class="text-xs text-gray-400 mt-2">Baseline model</p>
+    </div>
+    
+   <div class="bg-white p-6 rounded-2xl shadow hover:scale-105 transition border-2 border-green-500">
+  <h3 class="text-gray-500">SVC</h3>
+  <p class="text-xl font-bold text-green-600">Accuracy: 72%</p>
+  <p class="text-sm text-gray-600">ROC-AUC: 0.76</p>
+  <p class="text-xs text-gray-400 mt-2">Kernel: RBF, C=1</p>
+</div>
+
+    <div class="bg-white p-6 rounded-2xl shadow hover:scale-105 transition">
+      <h3 class="text-gray-500">HistGradientBoosting</h3>
+      <p class="text-xl font-bold text-purple-600">Accuracy: 73%</p>
+      <p class="text-sm text-gray-600">ROC-AUC: 0.79</p>
+      <p class="text-xs text-gray-400 mt-2">Depth=12, Iter=500</p>
+    </div>
+
+    <div class="bg-white p-6 rounded-2xl shadow hover:scale-105 transition border-2 border-green-500">
+      <h3 class="text-gray-500">Random Forest (Best)</h3>
+      <p class="text-xl font-bold text-green-600">Accuracy: 73%</p>
+      <p class="text-sm text-gray-600">ROC-AUC: 0.80</p>
+      <p class="text-xs text-gray-400 mt-2">400 Trees, Depth=10</p>
+    </div>
+
+  </div>
+
+  <!-- ACCURACY GRAPH -->
+  <div class="bg-white p-8 rounded-2xl shadow mb-12">
+    <h2 class="text-2xl font-bold mb-4">Model Performance Comparison</h2>
+    <canvas id="modelChart"></canvas>
+  </div>
+
+  <!-- CONFUSION MATRIX -->
+  <div class="bg-white p-8 rounded-2xl shadow mb-12">
+    <h2 class="text-2xl font-bold mb-6">Confusion Matrix (Random Forest)</h2>
+
+    <div class="grid grid-cols-3 gap-4 max-w-md mx-auto text-center font-bold">
+      <div></div>
+      <div>Predicted Low</div>
+      <div>Predicted High</div>
+
+      <div>Actual Low</div>
+      <div class="bg-green-100 p-4 rounded animate-fade">TN<br>4602</div>
+      <div class="bg-red-100 p-4 rounded animate-fade">FP<br>2312</div>
+
+      <div>Actual High</div>
+      <div class="bg-red-100 p-4 rounded animate-fade">FN<br>1514</div>
+      <div class="bg-green-100 p-4 rounded animate-fade">TP<br>5262</div>
+    </div>
+  </div>
+
+  <!-- FEATURE IMPORTANCE -->
+  <div class="bg-white p-8 rounded-2xl shadow mb-12">
+    <h2 class="text-2xl font-bold mb-6">Most Impactful Features</h2>
+    <canvas id="featureChart"></canvas>
+  </div>
+
+  <!-- NOTES -->
+  <div class="bg-blue-50 border-l-4 border-blue-600 p-6 rounded-xl">
+    <h3 class="font-bold mb-2">Task-3 Insights</h3>
+    <ul class="list-disc ml-6 text-gray-700">
+      <li>Random Forest achieved highest ROC-AUC after hyperparameter tuning</li>
+      <li>Threshold adjusted to 0.4 to improve recall for high-risk patients</li>
+      <li>Blood pressure and age are dominant predictors</li>
+    </ul>
+  </div>
+
+</div>
+
+<!-- CHART SCRIPTS -->
+<script>
+  lucide.createIcons();
+
+  new Chart(document.getElementById("modelChart"), {
+    type: "bar",
+    data: {
+      labels: ["Logistic Regression", "HistGradientBoosting", "Random Forest"],
+      datasets: [{
+        label: "ROC-AUC",
+        data: [0.76, 0.79, 0.80],
+        backgroundColor: ["#60a5fa", "#c084fc", "#22c55e"]
+      }]
+    },
+    options: {
+      animation: { duration: 2000 },
+      scales: { y: { beginAtZero: true, max: 1 } }
+    }
+  });
+
+  new Chart(document.getElementById("featureChart"), {
+    type: "bar",
+    data: {
+      labels: [
+        "Systolic BP",
+        "Age",
+        "Diastolic BP",
+        "Cholesterol",
+        "Weight",
+        "Glucose",
+        "Activity",
+        "Smoking"
+      ],
+      datasets: [{
+        label: "Feature Importance",
+        data: [0.22, 0.19, 0.16, 0.13, 0.11, 0.09, 0.06, 0.04],
+        backgroundColor: "#6366f1"
+      }]
+    },
+    options: {
+      indexAxis: "y",
+      animation: { duration: 2000 }
+    }
+  });
+</script>
+
+<style>
+  .nav-btn {
+    padding: 8px 14px;
+    border-radius: 8px;
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    font-weight: 500;
+  }
+  .nav-btn:hover { background: #f3f4f6; }
+</style>
+
+</body>
+</html>

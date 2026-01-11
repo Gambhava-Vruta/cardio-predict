@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CardioPredict AI | Home</title>
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body class="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50">
+
+<nav class="bg-white shadow-lg border-b-2 border-gray-100">
+  <div class="max-w-7xl mx-auto px-4">
+    <div class="flex justify-between items-center h-16">
+
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 bg-gradient-to-br from-red-500 to-pink-600 rounded-full flex items-center justify-center">
+          <i data-lucide="heart" class="w-6 h-6 text-white"></i>
+        </div>
+        <span class="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+          CardioPredict AI
+        </span>
+      </div>
+
+      <div class="flex items-center space-x-2">
+        <a href="home.html" class="nav-btn bg-gradient-to-r from-blue-500 to-purple-500 text-white">
+          <i data-lucide="home" class="w-4 h-4"></i> Home
+        </a>
+        <a href="predict.html" class="nav-btn">
+          <i data-lucide="activity" class="w-4 h-4"></i> Predict
+        </a>
+        <a href="about.html" class="nav-btn">
+          <i data-lucide="bar-chart-3" class="w-4 h-4"></i> About
+        </a>
+        <a href="dashboard.html" class="nav-btn">
+          <i data-lucide="trending-up" class="w-4 h-4"></i> Dashboard
+        </a>
+        <button onclick="logout()" class="nav-btn text-red-600 hover:bg-red-50">
+          <i data-lucide="log-out" class="w-4 h-4"></i> Logout
+        </button>
+      </div>
+
+    </div>
+  </div>
+</nav>
+
+<!-- MAIN -->
+<div class="max-w-7xl mx-auto px-4 py-12">
+
+  <!-- Welcome -->
+  <div class="text-center mb-12">
+    <h1 class="text-5xl font-bold text-gray-800 mb-4">
+      Welcome back,
+      <span id="username" class="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent"></span>!
+    </h1>
+    <p class="text-xl text-gray-600">
+      AI-Powered Cardiovascular Risk Assessment  
+      <span class="block text-sm text-gray-500 mt-2">
+        (Optimized for higher recall • Threshold = 0.4)
+      </span>
+    </p>
+  </div>
+
+  <!-- CARDS -->
+  <div class="grid md:grid-cols-3 gap-6 mb-12">
+
+    <!-- Model Card -->
+    <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition">
+      <div class="w-14 h-14 bg-gradient-to-br from-green-400 to-emerald-600 rounded-full flex items-center justify-center mb-4">
+        <i data-lucide="activity" class="w-7 h-7 text-white"></i>
+      </div>
+      <h3 class="text-xl font-bold mb-2">Random Forest Model</h3>
+      <p class="text-gray-600 mb-3">Optimized with GridSearch</p>
+      <div class="text-sm font-semibold text-blue-600">
+        Accuracy: 72% (Threshold = 0.4)
+      </div>
+    </div>
+
+    <!-- ROC AUC -->
+    <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition">
+      <div class="w-14 h-14 bg-gradient-to-br from-blue-400 to-indigo-600 rounded-full flex items-center justify-center mb-4">
+        <i data-lucide="bar-chart-3" class="w-7 h-7 text-white"></i>
+      </div>
+      <h3 class="text-xl font-bold mb-2">ROC-AUC Score</h3>
+      <p class="text-gray-600 mb-3">Strong discriminative ability</p>
+      <div class="text-sm font-semibold text-blue-600">Score: 0.798</div>
+    </div>
+
+    <!-- Recall -->
+    <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-2xl transition">
+      <div class="w-14 h-14 bg-gradient-to-br from-purple-400 to-pink-600 rounded-full flex items-center justify-center mb-4">
+        <i data-lucide="heart" class="w-7 h-7 text-white"></i>
+      </div>
+      <h3 class="text-xl font-bold mb-2">Disease Recall</h3>
+      <p class="text-gray-600 mb-3">Minimizing false negatives</p>
+      <div class="text-sm font-semibold text-blue-600">
+        Recall: 78% (Class 1)
+      </div>
+    </div>
+
+  </div>
+
+  <!-- CTA -->
+  <div class="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 rounded-2xl shadow-2xl p-10 text-white text-center mb-12">
+    <h2 class="text-4xl font-bold mb-4">Start Your Assessment</h2>
+    <p class="text-lg mb-6">
+      Prediction threshold optimized for safer cardiovascular screening
+    </p>
+    <a href="predict.html"
+      class="bg-white text-purple-600 px-8 py-4 rounded-lg font-bold text-lg hover:shadow-xl transition">
+      Begin Prediction
+    </a>
+  </div>
+
+  <!-- Model Specs -->
+  <div class="bg-white rounded-xl shadow-lg p-8">
+    <h2 class="text-2xl font-bold mb-6">Model Specifications</h2>
+
+    <div class="grid md:grid-cols-2 gap-6">
+
+      <div class="border-l-4 border-blue-500 pl-4">
+        <p class="text-sm text-gray-600">Algorithm</p>
+        <p class="font-semibold">Random Forest Classifier</p>
+      </div>
+
+      <div class="border-l-4 border-blue-500 pl-4">
+        <p class="text-sm text-gray-600">ROC-AUC</p>
+        <p class="font-semibold">0.798</p>
+        <p class="text-xs text-gray-500">CV: 0.801</p>
+
+      </div>
+
+      <div class="border-l-4 border-blue-500 pl-4">
+        <p class="text-sm text-gray-600">Accuracy</p>
+        <p class="font-semibold">73% (Threshold = 0.4)</p>
+      </div>
+
+      <div class="border-l-4 border-blue-500 pl-4">
+        <p class="text-sm text-gray-600">Precision (Disease)</p>
+        <p class="font-semibold">77%</p>
+      </div>
+
+      <div class="border-l-4 border-green-500 pl-4">
+        <p class="text-sm text-gray-600">Recall (Disease)</p>
+        <p class="font-semibold">67%</p>
+      </div>
+
+      <div class="border-l-4 border-gray-500 pl-4">
+        <p class="text-sm text-gray-600">Class Weight</p>
+        <p class="font-semibold">None</p>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<script>
+  lucide.createIcons();
+
+  const user = localStorage.getItem("user");
+  if (!user) window.location.href = "login.html";
+  document.getElementById("username").innerText = user;
+
+  function logout() {
+    localStorage.clear();
+    window.location.href = "login.html";
+  }
+</script>
+
+<style>
+  .nav-btn {
+    padding: 8px 14px;
+    border-radius: 8px;
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    font-weight: 500;
+  }
+  .nav-btn:hover { background: #f3f4f6; }
+</style>
+
+</body>
+</html>
