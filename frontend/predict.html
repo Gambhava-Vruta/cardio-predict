@@ -463,11 +463,17 @@
     };
 
     try {
-fetch("https://cardio-backend-production.up.railway.app/predict", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
-      });
+// fetch("https://cardio-backend-production.up.railway.app/predict", {
+//         method: "POST",
+//         headers: { "Content-Type": "application/json" },
+//         body: JSON.stringify(payload)
+//       });
+const response = await fetch("https://cardio-predict-production.up.railway.app/api/predict", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload)
+});
+
 
       if (!response.ok) throw new Error("Prediction failed");
      
